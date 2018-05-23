@@ -42,7 +42,7 @@
                         <space>${sap.cloud.space}</space>
                         <org>${sap.cloud.org}</org>
                         <appname>kayify-qa</appname>
-                        <memory>512</memory>
+                        <memory>640</memory>
                         <diskQuota>512</diskQuota>
                     </configuration>
                     <executions>

@@ -48,7 +48,7 @@ then
   echo "applications:
 - name: $BLUE
   instances: 1
-  memory: 512M
+  memory: 640M
   disk_quota: 512M
   routes:
   - route: $BLUE.$CF_DOMAIN" > $MANIFEST
