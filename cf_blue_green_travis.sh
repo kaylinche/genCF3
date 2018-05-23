@@ -1,4 +1,22 @@
 #!/bin/bash
+#
+# Define Functions
+#
+
+# Remove manifest information stored in the temporary directory
+function finally ()
+{
+  rm $MANIFEST
+}
+
+# Inform that the deployment has failed for some reason
+function on_fail () {
+  finally
+  echo "DEPLOY FAILED - you may need to check 'cf apps' and 'cf routes' and do manual cleanup"
+
+  # Set the Exit code to 1 to denote this as an erroneous Travis build
+  exit 1 
+}
 
 #
 # Fist part: installation of the Cloud Foundry client
@@ -81,18 +99,3 @@ cf delete-route $DOMAIN -n $GREEN -f
 finally
 
 echo "DONE"
-
-# Remove manifest information stored in the temporary directory
-finally ()
-{
-  rm $MANIFEST
-}
-
-# Inform that the deployment has failed for some reason
-on_fail () {
-  finally
-  echo "DEPLOY FAILED - you may need to check 'cf apps' and 'cf routes' and do manual cleanup"
-
-  # Set the Exit code to 1 to denote this as an erroneous Travis build
-  exit 1 
-}
