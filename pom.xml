@@ -41,6 +41,12 @@
         <!-- Property that holds the name of the application under which it will later appear in the cloud -->
         <sap.cloud.application>sample</sap.cloud.application>
 
+        <sap.cloud.api>${env.CF_API}</sap.cloud.api>
+        <sap.cloud.org>${env.CF_ORGANIZATION}</sap.cloud.org>
+        <sap.cloud.space>${env.CF_SPACE}</sap.cloud.space>
+        <sap.cloud.username>${env.CF_USERNAME}</sap.cloud.username>
+        <sap.cloud.password>${env.CF_PASSWORD}</sap.cloud.password>
+
         <!-- Properties that hold the local server configuration required for local integration-testing -->
         <local.server.root>${project.build.directory}/server</local.server.root>
         <local.server.host>localhost</local.server.host>
