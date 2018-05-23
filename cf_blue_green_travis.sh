@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #
 # Define Functions
 #
@@ -14,7 +15,7 @@ function finally ()
 function on_fail () {
   finally
   echo "DEPLOY FAILED - you may need to check 'cf apps' and 'cf routes' and do manual cleanup"
-
+  
   # Set the Exit code to 1 to denote this as an erroneous Travis build
   exit 1 
 }
@@ -64,7 +65,6 @@ cf create-app-manifest $BLUE -p $MANIFEST
 # Check in case of first run and empty manifest file
 if [ ! -s $MANIFEST ]
 then
-  echo "manifest empty"
   echo "applications:
 - name: $BLUE
   instances: 1
@@ -76,17 +76,13 @@ then
 fi
     
 # Find and replace the application name (to the name stored in green variable) in the manifest file
-echo "before sed"
 sed -i -e "s/: ${BLUE}/: ${GREEN}/g" $MANIFEST
 sed -i -e "s?path: ?path: $CURRENTPATH/?g" $MANIFEST
-echo "after sed"
 
 trap on_fail ERR
     
 # Prepare the URL of the green application
 DOMAIN=$CF_DOMAIN
-echo "deploy green"
-cat $MANIFEST
 cf push -f $MANIFEST -p /tmp/$CF_APP.war
 GREENURL=https://${GREEN}.${DOMAIN}
     
